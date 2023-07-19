@@ -1,0 +1,74 @@
+<div class="card mt-3" >
+    <div class="card-header">
+        <div class="row">
+            <div class="col-auto">
+                <h5>Listado disponible</h5>
+            </div>
+            <div class="col-auto">
+                <input type="search" class="form-control " placeholder="Buscar...">
+            </div>  
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="my-2 text-left">
+            <button class="btn btn-primary" type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Crear producto
+            </button>
+        </div>
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Producto</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-2 row">
+                        <label class="col-sm-3 col-form-label">Nombre</label>
+                        <div class="col-sm-7">
+                          <input type="text" class="form-control" id="name" [(ngModel)]="producto.name">
+                        </div>
+                      </div>
+                    <div class="mb-2 row">
+                        <label  class="col-sm-3 col-form-label">Descripcion</label>
+                        <div class="col-sm-7">
+                          <input type="text" class="form-control" id="description" [(ngModel)]="producto.description">
+                        </div>
+                    </div>
+                    <div class="mb-2 row">
+                        <label  class="col-sm-3 col-form-label">Precio</label>
+                        <div class="col-sm-7">
+                          <input type="text" class="form-control" id="unitprice" [(ngModel)]="producto.unitPrice" >
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                  <button type="button" class="btn btn-primary" (click)="guardar()">Guardar</button>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <table class="table table-striped " >
+            <thead>
+                <th>ID Producto</th>
+                <th>Nombre</th>
+                <th>Descripcion</th>
+                <th>Precio</th>
+            </thead>
+            <tbody *ngFor="let item of productos">
+                <tr>
+                    <td> {{item.id}} </td>
+                    <td> {{item.name}} </td>
+                    <td> {{item.description}} </td>
+                    <td> {{item.unitPrice}}  </td>
+                    <td><button type="button" name="eliminar" class="btn btn-danger btn-sm" (click)="eliminar(item)" >Eliminar</button></td>
+                    <td><button type="button" name="editar" class="btn btn-success btn-sm" >Editar</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
