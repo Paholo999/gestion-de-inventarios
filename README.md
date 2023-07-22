@@ -27,7 +27,7 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
 ## API
-
+store is the backend.
 baseUrl: 'http://localhost:5255/api' dotnet 
 
-The system needs to be updated with product sales and purchases.
+The system needs to be updated with product sales and purchases. 

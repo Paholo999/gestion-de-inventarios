@@ -1,22 +1,15 @@
+
 <div class="card mt-3" >
-    <div class="card-header">
-        <div class="row">
-            <div class="col-auto">
-                <h5>Listado disponible</h5>
-            </div>
-            <div class="col-auto">
-                <input type="search" class="form-control " placeholder="Buscar...">
-            </div>  
-        </div>
+  <div class="card-body">
+    <div class="text-center">
+      <h2><i class="fas fa-users"></i>  Product List</h2>
     </div>
-    <div class="card-body">
-        <div class="my-2 text-left">
-            <button class="btn btn-primary" type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <div class="my-2 text-left">
+            <button class="btn btn-outline-primary" type="button"  data-bs-toggle="modal" data-bs-target="#createModal">
                 Crear producto
             </button>
-        </div>
-
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    </div>
+    <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
@@ -49,26 +42,51 @@
                 </div>
               </div>
             </div>
-        </div>
-
-        <table class="table table-striped " >
-            <thead>
-                <th>ID Producto</th>
-                <th>Nombre</th>
-                <th>Descripcion</th>
-                <th>Precio</th>
-            </thead>
-            <tbody *ngFor="let item of productos">
-                <tr>
-                    <td> {{item.id}} </td>
-                    <td> {{item.name}} </td>
-                    <td> {{item.description}} </td>
-                    <td> {{item.unitPrice}}  </td>
-                    <td><button type="button" name="eliminar" class="btn btn-danger btn-sm" (click)="eliminar(item)" >Eliminar</button></td>
-                    <td><button type="button" name="editar" class="btn btn-success btn-sm" >Editar</button></td>
-                </tr>
-            </tbody>
-        </table>
     </div>
+
+
+    <!--table class="table" >
+      <thead>
+        <th>ID Producto</th>
+        <th>Nombre</th>
+        <th>Descripcion</th>
+        <th>Precio (Q)</th>
+        <th>Stock</th>
+        <th></th>
+      </thead>
+      <tbody class="" *ngFor="let item of productos">
+        <tr>
+          <td> {{item.id}} </td>
+          <td> {{item.name}} </td>
+          <td> {{item.description}} </td>
+          <td> {{item.unitPrice}}  </td>
+          <td> {{item.stock}}  </td>
+          <td><button type="button" name="eliminar" class="btn btn-outline-danger btn-sm" (click)="eliminar(item)" >Eliminar</button>
+              <button type="button" name="editar" class="btn btn-outline-secondary btn-sm ms-2" >Editar detalles</button>
+              <button type="button" name="editar" class="btn btn-outline-warning btn-sm ms-2" >Sale product</button>
+              <button type="button" name="editar" class="btn btn-outline-success btn-sm ms-2" >Buy product</button>
+          </td>
+        </tr>
+      </tbody>
+    </table-->
+    <div class="container">
+      <div class="row">
+        <div class="col-sm" *ngFor="let item of productos">
+          <div class="card" style="width: 18rem;">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">{{item.name}}</h5>
+              <p class="card-text">Precio: Q{{item.unitPrice}}</p>
+              <p class="card-text">Stock: {{item.stock}}</p>
+              <button type="button" name="eliminar" class="btn btn-outline-danger btn-sm" (click)="eliminar(item)" >Eliminar</button>
+              <button type="button" name="editar" class="btn btn-outline-secondary btn-sm ms-2" >Editar detalles</button>
+              <button type="button" name="editar" class="btn btn-outline-warning btn-sm ms-2">Sale product</button>
+                <button type="button" name="editar" class="btn btn-outline-success btn-sm ms-2" >Buy product</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 

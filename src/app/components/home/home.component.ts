@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
 
   eliminar(producto: Producto) : void {
     Swal.fire({
-      title: 'Carreras tecnicas',
+      title: 'Product List',
       text: `Esta seguro de eliminar el producto:  ${producto.name}`,
       icon: 'warning',
       showCancelButton: true,
