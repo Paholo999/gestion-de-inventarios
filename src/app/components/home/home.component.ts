@@ -13,11 +13,27 @@ import { ActivatedRoute, Router} from '@angular/router';
 export class HomeComponent implements OnInit {
 
   producto: Producto = new Producto;
+  productQuantity:number=1;
+
+  
+
   productos: any[] = [];
   constructor(private HomeService: HomeService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.HomeService.getProductos().subscribe((result: Producto[]) => (this.productos = result));
+  }
+  
+  handleQuantity(val:string){
+    if(this.productQuantity<20 && val==='plus'){
+      this.productQuantity+=1;
+    }else if(this.productQuantity>1 && val==='min'){
+      this.productQuantity-=1;
+    }
+  }
+
+  addToSale(producto: Producto){
+    this.HomeService.addProducto(producto)
   }
 
   guardar(): void {

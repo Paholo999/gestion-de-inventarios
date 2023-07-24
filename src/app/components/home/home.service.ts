@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Producto } from './home.model';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -10,6 +10,9 @@ import { environment } from 'src/environments/environment';
 export class HomeService {
 
   private url = "Product";
+
+  //list of saleProducts
+  private myListSale: Producto[]=[]
 
   constructor(private http: HttpClient) { }
 
@@ -23,6 +26,32 @@ export class HomeService {
 
   public deleteProducto(producto: Producto) : Observable<Producto[]>{
     return this.http.delete<Producto[]>(`${environment.baseUrl}/${this.url}/${producto.id}`);
+  }
+
+  private myCart = new BehaviorSubject<Producto[]>([]);
+  myCart$ = this.myCart.asObservable();
+
+  public addProducto(producto: Producto)
+  {
+    if(this.myListSale.length === 0){
+      producto.stock = 1
+
+      this.myListSale.push(producto)
+
+      this.myCart.next(this.myListSale)
+    } else {
+      const productMod = this.myListSale.find((element) => {
+        return element.id === producto.id
+      })
+      if(productMod){
+        productMod.stock = productMod.stock + 1;
+        this.myCart.next(this.myListSale)
+      } else {
+        producto.stock = 1
+        this.myListSale.push(producto)
+        this.myCart.next(this.myListSale)
+      }
+    }
   }
 
 }
