@@ -3,5 +3,6 @@ export class Producto{
     name: string;
     description: string;
     unitPrice: number;
+    unitsSale: number;
     stock: number;
 }

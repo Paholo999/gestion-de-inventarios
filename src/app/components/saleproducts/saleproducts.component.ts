@@ -8,11 +8,13 @@ import { HomeService } from 'src/app/components/home/home.service'
 })
 export class SaleproductsComponent implements OnInit {
 
+  myCart$ = this.homeService.myCart$
+
   constructor(private homeService:HomeService) { }
 
   ngOnInit(): void {
   }
 
-  myCart$ = this.homeService.myCart$
-  
+    
+
 }

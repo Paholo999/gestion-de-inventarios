@@ -34,7 +34,7 @@ export class HomeService {
   public addProducto(producto: Producto)
   {
     if(this.myListSale.length === 0){
-      producto.stock = 1
+      producto.unitsSale = 1
 
       this.myListSale.push(producto)
 
@@ -44,10 +44,10 @@ export class HomeService {
         return element.id === producto.id
       })
       if(productMod){
-        productMod.stock = productMod.stock + 1;
+        productMod.unitsSale = productMod.unitsSale + 1;
         this.myCart.next(this.myListSale)
       } else {
-        producto.stock = 1
+        producto.unitsSale = 1
         this.myListSale.push(producto)
         this.myCart.next(this.myListSale)
       }

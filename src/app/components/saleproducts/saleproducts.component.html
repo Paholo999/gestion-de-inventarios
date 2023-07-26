@@ -7,13 +7,13 @@
         <th>Cantidad</th>
         <th></th>
     </thead>
-    <tbody class="" >
+    <tbody class="" *ngFor="let product of myCart$ | async">
         <tr>
-          <td>  </td>
-          <td>  </td>
-          <td>  </td>
-          <td> </td>
-          <td>  </td>
+          <td>{{product.id}}</td>
+          <td>{{product.name}}</td>
+          <td>{{product.description}}</td>
+          <td>{{product.unitPrice}}</td>
+          <td>{{product.unitsSale}}</td>
           <td> </td>
         </tr>
     </tbody>
