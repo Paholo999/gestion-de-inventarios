@@ -1,5 +1,5 @@
 <div class="text-center">
-    <h2><i class="fas fa-users"></i>Venta de productos</h2>
+    <h2><i class="fas fa-users"></i>Compra de productos</h2>
 </div>
 <div class="card mt-3">
     <table class="table table-borderless m-3" >
@@ -12,14 +12,14 @@
             <th>Total (Q)</th>
             <th></th>
         </thead>
-        <tbody class="" *ngFor="let product of myCart$ | async">
+        <tbody class="" *ngFor="let product of myCartBuy$ | async">
             <tr>
                 <td>{{product.id}}</td>
                 <td>{{product.name}}</td>
                 <td>{{product.description}}</td>
                 <td>{{product.unitPrice}}</td>
-                <td><i class="bi bi-dash-square-fill" (click)="updateUnits('minus',product.id)"></i>    {{product.unitsSale}}   <i class="bi bi-plus-square-fill" (click)="updateUnits('add',product.id)"></i></td>
-                <td>{{totalProduct(product.unitPrice, product.unitsSale)}}</td>
+                <td><i class="bi bi-dash-square-fill" (click)="updateUnits('minus',product.id)"></i>    {{product.unitsBuy}}   <i class="bi bi-plus-square-fill" (click)="updateUnits('add',product.id)"></i></td>
+                <td>{{totalProduct(product.unitPrice, product.unitsBuy)}}</td>
                 <td><i class="bi bi-file-excel-fill" (click)="deleteProduct(product)"></i></td>
             </tr>
         </tbody>
@@ -30,7 +30,7 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td>{{totalSaleProduct()}}</td>
+                <td>{{totalBuyProduct()}}</td>
                 <td></td>
             </tr>
         </tfoot>

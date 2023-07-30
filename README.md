@@ -31,3 +31,6 @@ store is the backend.
 baseUrl: 'http://localhost:5255/api' dotnet 
 
 The system needs to be updated with product sales and purchases. 
+
+ng g c components/saleproducts --skip-tests --inline-style
+ng g class components/createproducts/Product --type=model --skip-tests

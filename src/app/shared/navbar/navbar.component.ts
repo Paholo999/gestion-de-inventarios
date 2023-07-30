@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductService } from 'src/app/components/createproducts/product.service';
 import { HomeService } from 'src/app/components/home/home.service';
 
 @Component({
@@ -8,9 +9,10 @@ import { HomeService } from 'src/app/components/home/home.service';
 })
 export class NavbarComponent implements OnInit {
 
-  myCart$ = this.homeService.myCart$
+  myCart$ = this.productService.myCart$
+  myCartBuy$ = this.productService.myCartBuy$
 
-  constructor(private homeService: HomeService) { }
+  constructor(private homeService: HomeService,private productService: ProductService) { }
 
   ngOnInit(): void {
   }

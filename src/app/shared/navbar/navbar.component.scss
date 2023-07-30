@@ -49,6 +49,15 @@ a{
     }
 }
 
+i{
+    width: 30px;
+    padding: 8px;
+    border-radius: 10px;
+    background-color: var(--button-bg);
+    flex-shrink: 0;
+    margin-right: 16px;
+}
+
 svg {
     width: 30px;
     padding: 8px;
@@ -60,6 +69,8 @@ svg {
       color: #fff;
     }
 }
+
+
 
 .side-title {
     font-size: 12px;
