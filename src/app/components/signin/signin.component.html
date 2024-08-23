@@ -1,0 +1,28 @@
+<div class="register-form">
+    <h1>Registrarse</h1>
+    <form id="register-form">
+      <label for="register-username">Usuario:</label>
+      <input [(ngModel)]="user.Username" type="text" id="register-username" name="register-username" required>
+
+      <label for="register-firstname">Nombre:</label>
+      <input [(ngModel)]="user.FirstName"  type="text" id="register-firstname" name="register-firstname" required>
+
+      <label for="register-lastname">Apellido:</label>
+      <input [(ngModel)]="user.LastName" type="text" id="register-lastname" name="register-lastname" required>
+
+      <label for="register-email">Email:</label>
+      <input [(ngModel)]="user.Email" type="text" id="register-email" name="register-email" required>
+
+      <label for="register-password">Contraseña:</label>
+      <input [(ngModel)]="user.Password" type="password" id="register-password" name="register-password" required>
+
+     
+        <!--label for="role">Role:</label>
+        <select id="role" name="role" required>
+          <option value="Admin">Admin</option>
+          <option value="User">User</option>
+        </select-->
+      
+      <button (click)="signin()" type="submit">Registrarse</button>
+    </form>
+</div>

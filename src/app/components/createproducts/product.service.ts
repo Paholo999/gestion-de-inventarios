@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Product } from './product.model';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -22,12 +22,32 @@ export class ProductService {
     return this.http.get<any[]>(`${environment.baseUrl}/${this.url}`);
   }
 
+  public getProduct(productId : number) : Observable<Product>{
+    return this.http.get<Product>(`${environment.baseUrl}/${this.url}/${productId}`).pipe(
+      catchError(e => {
+        return throwError(() => {
+          Error(e);
+        });
+      })
+    );
+  }
+
   public postProduct(product: Product) : Observable<Product[]>{
     return this.http.post<Product[]>( `${environment.baseUrl}/${this.url}`,product);
   }
 
   public deleteProduct(product: Product) : Observable<Product[]>{
     return this.http.delete<Product[]>(`${environment.baseUrl}/${this.url}/${product.id}`);
+  }
+
+  public putProduct(product: Product) : Observable<any>{
+    return this.http.put<any>(`${environment.baseUrl}/${this.url}/${product.id}`, product).pipe(
+      catchError(e => {
+        return throwError(() => {
+          Error(e);
+        });
+      })
+    );
   }
 
   private myCart = new BehaviorSubject<Product[]>([]);
@@ -37,20 +57,24 @@ export class ProductService {
 
   public addProduct(product: Product)
   {
-    if(this.myListSale.length === 0){
+    if(this.myListSale.length === 0){  
       product.unitsSale = 1
-
       this.myListSale.push(product)
-
       this.myCart.next(this.myListSale)
     } else {
       const productMod = this.myListSale.find((element) => {
         return element.id === product.id
       })
       if(productMod){
-        productMod.unitsSale = productMod.unitsSale + 1;
-        this.myCart.next(this.myListSale)
-      } else {
+        
+        if(productMod.unitsSale < product.stock){
+          productMod.unitsSale = productMod.unitsSale + 1;
+          this.myCart.next(this.myListSale)
+        }else{
+          alert("No hay mas existencias")
+        }
+        
+      }else{
         product.unitsSale = 1
         this.myListSale.push(product)
         this.myCart.next(this.myListSale)
@@ -80,6 +104,11 @@ export class ProductService {
       }
     }
   }
+
+  public ListSale(){
+    return this.myListSale
+  }
+
 
   public findSaleProductId(id: number){
     return this.myListSale.find((element) => {

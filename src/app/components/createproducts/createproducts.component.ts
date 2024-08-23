@@ -7,11 +7,12 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-createproducts',
   templateUrl: './createproducts.component.html',
-  styleUrls: ['./createproducts.component.css']
+  styleUrls: []
 })
 export class CreateproductsComponent implements OnInit {
 
   product: Product = new Product;
+  productUpdate: Product = new Product;
   productQuantity:number=1;
 
   
@@ -30,6 +31,26 @@ export class CreateproductsComponent implements OnInit {
   addToBuy(product: Product){
     this.ProductService.addBuyProduct(product)
   }
+
+  update(product: Product) : void {
+    this.product.id = product.id;
+    this.product.name = product.name;
+    this.product.description = product.description;
+    this.product.unitPrice = product.unitPrice;
+  }
+
+  updateProduct():void {
+    this.ProductService.putProduct(this.product).subscribe( response=> {
+      Swal.fire({
+        title: 'Productos',
+        text: `El producto ha sido actualizado`,
+        icon: 'success'
+      }).then(result =>{
+        window.location.reload();
+      });
+
+    });
+  }
   
   save(): void {
     this.ProductService.postProduct(this.product).subscribe( reponse => {
@@ -43,6 +64,7 @@ export class CreateproductsComponent implements OnInit {
       });
     });
   }
+  
 
   eliminate(product: Product) : void {
     Swal.fire({

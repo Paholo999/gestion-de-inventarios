@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../createproducts/product.service';
 import { Product } from '../createproducts/product.model';
+import { BuyproductsService } from './buyproducts.service';
+import { Buyproducts } from './buyproducts.model';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-buyproducts',
@@ -11,7 +14,7 @@ export class BuyproductsComponent implements OnInit {
 
   myCartBuy$ = this.productService.myCartBuy$ 
   
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService, private buyproductService: BuyproductsService) { }
 
   ngOnInit(): void {
   }
@@ -44,6 +47,32 @@ export class BuyproductsComponent implements OnInit {
   deleteProduct(product: Product){
     this.productService.deleteBuyProduct(product)
   }
+  
+  buy(){
+    const data:Buyproducts[] = this.productService.ListSale().map(item => ({
+      id: item.id,
+      quantity: item.unitsSale
+    }))
+    
+    this.buyproductService.putProduct(data)
+      .subscribe({
+        next: (response) => {
+          console.log('Buy operation completed:', response);
+          console.log('Updated buy data:', data);
+          Swal.fire({
+            title: 'Productos',
+            text: `Los productos han sido comprados correctamente`,
+            icon: 'success'
+          }).then(result =>{
+            window.location.reload();
+          });
+        },
+        error: (error) => {
+          console.error('Error occurred during sale operation:', error);
+        }
+      });
 
+    console.log(data)
+  }
 
 }

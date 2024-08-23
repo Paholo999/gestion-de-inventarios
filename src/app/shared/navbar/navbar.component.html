@@ -1,29 +1,78 @@
-<div class="sidebar">
-    <span class="logo">Logo</span>
-    <a class="logo-expand" href="#">Gestión de inventario</a>
-    <div class="side-wrapper">
-        <div class="side-title">Menú</div>
-        <div class="side-menu">
-            <a class="sidebar-link discover is-active" [routerLink]="['createProducts']" href="#">
-                <i class="bi bi-clipboard-plus"></i>
-                Crear productos
-            </a>
-            <a class="sidebar-link trending" [routerLink]="['saleProduct']" href="#">
-                <i class="bi bi-cart"></i>
-                Venta de Productos
-                <div class="" *ngIf="(myCart$ | async)?.length">
-                    <p>{{ (myCart$ | async)?.length }}</p>
-                </div>
-            </a>
-            <a class="sidebar-link" href="#" [routerLink]="['buyProduct']">
-                <i class="bi bi-bag"></i>
-                Compra de Productos
-                <div class="" *ngIf="(myCartBuy$ | async)?.length">
-                    <p>{{ (myCartBuy$ | async)?.length }}</p>
-                </div>
-            </a>
-        </div>
-    </div>
-</div>
 
+<!-- menu.html -->
+
+<nav class="bg-gray-800">
+  <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+    <div class="relative flex h-16 items-center justify-between">
+      <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+        <div class="flex flex-shrink-0 items-center">
+          <h1 class="h-8 w-auto text-gray-300 text-white px-3 py-2 text-sm font-medium" >Logo</h1>
+        </div>
+        <div class="sm:ml-6 sm:block">
+          <div class="flex space-x-4">
+            <a class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" [routerLink]="['home']" href="#">Inicio</a>
+            <a *ngIf="loginService.isAuthenticated()" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" [routerLink]="['manageproducts']" href="#">Gestionar productos</a>
+            <a class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" [routerLink]="['createProducts']" href="#">Productos</a>
+            <a *ngIf="loginService.isAuthenticated()" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" [routerLink]="['buyProduct']" href="#">
+              Compra de productos
+              <div class="" *ngIf="(myCartBuy$ | async)?.length">
+                <p>{{ (myCartBuy$ | async)?.length }}</p>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
+          <a *ngIf="!loginService.isAuthenticated()" href="#" [routerLink]="['login']" class="text-sm font-medium text-gray-300 hover:text-gray-400">Sign in</a>
+          <span *ngIf="!loginService.isAuthenticated()" class="h-6 w-px bg-gray-200" aria-hidden="true"></span>
+          <a *ngIf="!loginService.isAuthenticated()" [routerLink]="['signin']" href="#" class="text-sm font-medium text-gray-300 hover:text-gray-400">Create account</a>
+        </div>
+
+       <!-- Profile dropdown *ngIf="loginService.isAuthenticated()"-->
+      <div *ngIf="loginService.isAuthenticated()" class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
+        <p class="text-sm font-medium text-gray-300 hover:text-gray-400">{{loginService._user.Username}}</p>
+        <div  class="relative ml-3">
+          <div>
+            <button type="button" class="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" id="user-menu-button" aria-expanded="isMenuOpen" (click)="toggleMenu()">
+              <span class="absolute -inset-1.5"></span>
+              <span class="sr-only">Open user menu</span>
+              <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+            </button>
+          </div>
+
+          <!--
+          Dropdown menu, show/hide based on menu state.
+
+          Entering: "transition ease-out duration-100"
+            From: "transform opacity-0 scale-95"
+            To: "transform opacity-100 scale-100"
+          Leaving: "transition ease-in duration-75"
+            From: "transform opacity-100 scale-100"
+            To: "transform opacity-0 scale-95"
+          -->
+          <div *ngIf="isMenuOpen" class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+            <!-- Active: "bg-gray-100", Not Active: "" -->
+            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
+            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
+            <a href="#" (click)="logout()" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="ml-4 flow-root lg:flex lg:items-center lg:space-x-6">
+        <a href="#" [routerLink]="['saleProduct']" class="group -m-2 flex items-center p-2">
+          <svg class="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+          </svg>
+          <span class="ml-2 text-sm font-medium text-gray-300 group-hover:text-gray-300" *ngIf="(myCart$ | async)?.length">{{ (myCart$ | async)?.length }}</span>
+        </a>
+      </div>
+
+      </div>
+      
+    </div>
+   
+  </div>
+    
+</nav>
 

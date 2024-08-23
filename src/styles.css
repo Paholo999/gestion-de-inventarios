@@ -1,1 +1,70 @@
 /* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+img {
+	max-width: 100%;
+}
+
+.container-related-products h2 {
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+.card1-list-products {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 25px;
+}
+
+.card1 {
+	cursor: pointer;
+}
+
+.card1-img {
+	background: transparent;
+	margin-bottom: 15px;
+}
+
+.card1-img img {
+	height: 400px;
+	object-fit: cover;
+	box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.info-card1 {
+	display: flex;
+	justify-content: space-between;
+}
+
+.text-product {
+	color: #252525;
+	font-weight: 300;
+	line-height: 1.4;
+}
+
+.text-product h3{
+    color: inherit;
+    font-weight: inherit;
+    font-size: 15px;
+}
+
+.text-product h3:hover{
+    color: #1bbeb4;
+}
+
+.text-product p{
+    color: #666;
+    font-size: 13px;
+}
+
+.text-product p:hover{
+    color: #1bbeb4;
+}

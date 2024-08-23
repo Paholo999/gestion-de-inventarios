@@ -1,49 +1,63 @@
-<div class="text-center">
-    <h2><i class="fas fa-users"></i>Venta de productos</h2>
-</div>
-<div class="card mt-3">
-    <table class="table table-borderless m-3" >
-        <thead>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Descripcion</th>
-            <th>Precio (Q)</th>
-            <th>Cantidad</th>
-            <th>Total (Q)</th>
-            <th></th>
-        </thead>
-        <tbody class="" *ngFor="let product of myCart$ | async">
-            <tr>
-                <td>{{product.id}}</td>
-                <td>{{product.name}}</td>
-                <td>{{product.description}}</td>
-                <td>{{product.unitPrice}}</td>
-                <td><i class="bi bi-dash-square-fill" (click)="updateUnits('minus',product.id)"></i>    {{product.unitsSale}}   <i class="bi bi-plus-square-fill" (click)="updateUnits('add',product.id)"></i></td>
-                <td>{{totalProduct(product.unitPrice, product.unitsSale)}}</td>
-                <td><i class="bi bi-file-excel-fill" (click)="deleteProduct(product)"></i></td>
-            </tr>
-        </tbody>
-        <tfoot>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>{{totalSaleProduct()}}</td>
-                <td></td>
-            </tr>
-        </tfoot>
-    </table>
-</div>
-<div class="my-2 text-left">
-    <button class="btn btn-outline-primary m-2" type="button"  data-bs-toggle="" data-bs-target="">
-        <i class="bi bi-hdd"></i>
-    </button> 
-    <button class="btn btn-outline-danger m-2 " type="button"  data-bs-toggle="" data-bs-target="">
-        <i class="bi bi-filetype-pdf"></i>
-    </button>
-    <button class="btn btn-outline-dark m-2" type="button"  data-bs-toggle="" data-bs-target="">
-        <i class="bi bi-x-circle"></i>
-    </button>
+
+<div class="" id="chec-div">
+    <div class="" id="checkout">
+        <div class="flex lg:flex-row flex-col justify-center" id="cart">
+            <div class="lg:w-1/2 md:w-8/12 w-full lg:px-8 lg:py-14 md:px-6 px-4 md:py-8 py-4 bg-white overflow-y-auto overflow-x-hidden lg:h-screen h-auto" id="scroll">
+                <!--div class="flex items-center text-gray-500 hover:text-gray-600 cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <polyline points="15 6 9 12 15 18" />
+                    </svg>
+                    <p class="text-sm pl-2 leading-none">Back</p>
+                </div-->
+                <p class="lg:text-4xl text-3xl font-black leading-10 text-gray-800 pt-3">Bag</p>
+                <div class="md:flex items-strech py-8 md:py-10 lg:py-8 border-t border-gray-50" *ngFor="let product of myCart$ | async">
+                    <div class="md:w-4/12 2xl:w-1/4 w-full">
+                        <img src="" alt="{{product.name}}" class="h-full object-center object-cover md:block hidden" />
+                        <img src="" alt="{{product.name}}" class="md:hidden w-full h-full object-center object-cover" />
+                    </div>
+                    <div class="md:pl-3 md:w-8/12 2xl:w-3/4 flex flex-col justify-center">
+                        <div class="flex items-center justify-between w-full pt-1">
+                            <p class="text-base font-black leading-none text-gray-800">{{product.name}}</p>
+                            <div class="py-2 px-1 border border-gray-100 mr-6 focus:outline-none">
+                                <i class="bi bi-dash-square-fill" (click)="updateUnits('minus',product.id)"></i>    {{product.unitsSale}}   <i class="bi bi-plus-square-fill" (click)="updateUnits('add',product.id)"></i>
+                            </div>
+                        </div>
+                        <p class="text-xs leading-3 text-gray-600 py-4">{{product.description}}</p>
+                        <p class="w-96 text-xs leading-3 text-gray-600">{{totalProduct(product.unitPrice, product.unitsSale)}}</p>
+                        <div class="flex items-center justify-between pt-5">
+                            <div class="flex itemms-center">
+                                <p class="text-xs leading-3 underline text-gray-800 cursor-pointer">Add to favorites</p>
+                                <p class="text-xs leading-3 underline text-red-500 pl-5 cursor-pointer" (click)="deleteProduct(product)" >Remove</p>
+                            </div>
+                            <p class="text-base font-black leading-none text-gray-800">Q {{product.unitPrice}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="lg:w-1/3 md:w-8/12 w-full bg-gray-100 h-full">
+                <div class="flex flex-col lg:h-screen h-auto lg:px-8 md:px-7 px-4 lg:py-20 md:py-10 py-6 justify-between overflow-y-auto">
+                    <div>
+                        <p class="lg:text-4xl text-3xl font-black leading-9 text-gray-800">Summary</p>
+                        <div class="flex items-center justify-between pt-16">
+                            <p class="text-base leading-none text-gray-800">Subtotal</p>
+                            <p class="text-base leading-none text-gray-800">Q {{totalSaleProduct()}}</p>
+                        </div>
+                        <div class="flex items-center justify-between pt-5">
+                            <p class="text-base leading-none text-gray-800">Tax</p>
+                            <p class="text-base leading-none text-gray-800">Q 0</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex items-center pb-6 justify-between lg:pt-5 pt-20">
+                            <p class="text-2xl leading-normal text-gray-800">Total</p>
+                            <p class="text-2xl font-bold leading-normal text-right text-gray-800">Q {{totalSaleProduct()}}</p>
+                        </div>
+                        <button class="text-base leading-none w-full py-5 bg-gray-800 border-gray-800 border focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-white">Checkout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
 </div>

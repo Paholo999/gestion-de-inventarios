@@ -1,97 +1,145 @@
-<div class="card mt-3" >
-    <div class="card-body">
-      <div class="text-center">
-        <h2><i class="fas fa-users"></i>Lista de productos</h2>
+
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Producto</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+      <div class="modal-body">
+          <div class="mb-2 row">
+              <label class="col-sm-3 col-form-label">Nombre</label>
+              <div class="col-sm-7">
+                <input type="text" class="form-control" id="name" [(ngModel)]="product.name">
+              </div>
+            </div>
+          <div class="mb-2 row">
+              <label  class="col-sm-3 col-form-label">Descripcion</label>
+              <div class="col-sm-7">
+                <input type="text" class="form-control" id="description" [(ngModel)]="product.description">
+              </div>
+          </div>
+          <div class="mb-2 row">
+              <label  class="col-sm-3 col-form-label">Precio</label>
+              <div class="col-sm-7">
+                <input type="text" class="form-control" id="unitPrice" [(ngModel)]="product.unitPrice" >
+              </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" (click)="save()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar Producto</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <div class="mb-2 row">
+            <label class="col-sm-3 col-form-label">Id</label>
+            <div class="col-sm-7">
+              <input type="text" value="{{product.id}}" [(ngModel)]="product.id"  class="form-control" id="id" >
+            </div>
+          </div>
+          <div class="mb-2 row">
+              <label class="col-sm-3 col-form-label">Nombre</label>
+              <div class="col-sm-7">
+                <input type="text" value="{{product.name}}" [(ngModel)]="product.name"  class="form-control" id="name" >
+              </div>
+          </div>
+          <div class="mb-2 row">
+              <label  class="col-sm-3 col-form-label">Descripcion</label>
+              <div class="col-sm-7">
+                <input type="text" value="{{product.description}}" [(ngModel)]="product.description" class="form-control" id="description">
+              </div>
+          </div>
+          <div class="mb-2 row">
+              <label  class="col-sm-3 col-form-label">Precio</label>
+              <div class="col-sm-7">
+                <input type="text" value="{{product.unitPrice}}" [(ngModel)]="product.unitPrice" class="form-control" id="unitPrice" >
+              </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="updateProduct()" >Update</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--div class="card border-light" >
+    <div class="card-body">
       <div class="my-2 text-left">
               <button class="btn btn-outline-primary" type="button"  data-bs-toggle="modal" data-bs-target="#createModal">
                 <i class="bi bi-clipboard-plus"></i>
               </button>
       </div>
-      <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Producto</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                      <div class="mb-2 row">
-                          <label class="col-sm-3 col-form-label">Nombre</label>
-                          <div class="col-sm-7">
-                            <input type="text" class="form-control" id="name" [(ngModel)]="product.name">
-                          </div>
-                        </div>
-                      <div class="mb-2 row">
-                          <label  class="col-sm-3 col-form-label">Descripcion</label>
-                          <div class="col-sm-7">
-                            <input type="text" class="form-control" id="description" [(ngModel)]="product.description">
-                          </div>
-                      </div>
-                      <div class="mb-2 row">
-                          <label  class="col-sm-3 col-form-label">Precio</label>
-                          <div class="col-sm-7">
-                            <input type="text" class="form-control" id="unitPrice" [(ngModel)]="product.unitPrice" >
-                          </div>
-                      </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary" (click)="save()">Guardar</button>
-                  </div>
-                </div>
+      <section class="container-related-products">
+        <div class="text-center m-5">
+          <h2><i class="fas fa-users"></i>Lista de productos</h2>
+        </div>
+        <div class="card1-list-products">
+          <div class="card1" *ngFor="let item of products">
+            <div class="card1-img">
+              <img
+                src="https://images.unsplash.com/photo-1587563871167-1ee9c731aefb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1131&q=80"
+                alt="producto-2"
+              />
+            </div>
+            <div class="info-card">
+
+              <div class="text-product">
+                <h3>{{item.name}}</h3>
+                <p class="category">Footwear, Sneakers</p>
               </div>
-      </div>
-  
-  
-      <!--table class="table" >
-        <thead>
-          <th>ID Producto</th>
-          <th>Nombre</th>
-          <th>Descripcion</th>
-          <th>Precio (Q)</th>
-          <th>Stock</th>
-          <th></th>
-        </thead>
-        <tbody class="" *ngFor="let item of productos">
-          <tr>
-            <td> {{item.id}} </td>
-            <td> {{item.name}} </td>
-            <td> {{item.description}} </td>
-            <td> {{item.unitPrice}}  </td>
-            <td> {{item.stock}}  </td>
-            <td><button type="button" name="eliminar" class="btn btn-outline-danger btn-sm" (click)="eliminar(item)" >Eliminar</button>
-                <button type="button" name="editar" class="btn btn-outline-secondary btn-sm ms-2" >Editar detalles</button>
-                <button type="button" name="editar" class="btn btn-outline-warning btn-sm ms-2" >Sale product</button>
-                <button type="button" name="editar" class="btn btn-outline-success btn-sm ms-2" >Buy product</button>
-            </td>
-          </tr>
-        </tbody>
-      </table-->
-      
-      <div class="container">
-        <div class="row">
-          <div class="col-sm" *ngFor="let item of products">
-            <div class="card" style="width: 18rem;">
-              <img src="..." class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">{{item.name}}</h5>
-                <p class="card-text">Precio: Q{{item.unitPrice}}</p>
-                <p class="card-text">Stock: {{item.stock}}</p>
-                <button type="button" name="eliminate" class="btn btn-outline-danger btn-sm" (click)="eliminate(item)" ><i class="bi bi-trash3"></i></button>
-                <button type="button" name="edit" class="btn btn-outline-info btn-sm ms-2" ><i class="bi bi-pencil-square"></i></button>
-                <button type="button" name="sale" class="btn btn-outline-dark btn-sm ms-2" (click)="addToSale(item)"><i class="bi bi-cart"></i></button>
-                <button type="button" name="buy" class="btn btn-outline-success btn-sm ms-2" (click)="addToBuy(item)"><i class="bi bi-bag"></i></button>
-                <!--div class="quantity-group">
-                  <button (click)="handleQuantity('min')" >-</button>
-                  <input type="text" value="{{productQuantity}}" />
-                  <button (click)="handleQuantity('plus')">+</button>
-              </div-->
-              </div>
+              <div class="price">Q{{item.unitPrice}}</div>
+
+              <button type="button" name="eliminate" class="btn btn-outline-danger btn-sm" (click)="eliminate(item)" ><i class="bi bi-trash3"></i></button>
+              <button type="button" name="edit" class="btn btn-outline-info btn-sm ms-2" (click)="update(item)" data-bs-toggle="modal" data-bs-target="#updateModal" ><i class="bi bi-pencil-square"></i></button>
+              <button type="button" name="sale" class="btn btn-outline-dark btn-sm ms-2" *ngIf="item.stock else elseBlock" (click)="addToSale(item)"><i class="bi bi-cart"></i></button>
+              <button type="button" name="buy" class="btn btn-outline-success btn-sm ms-2" (click)="addToBuy(item)"><i class="bi bi-bag"></i></button>
+              <ng-template #elseBlock>
+                
+              </ng-template>
             </div>
           </div>
+        </div>
+      </section>
+    </div>
+</div-->
+			
+<div class="bg-white">
+  <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+    <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+      <div class="group relative" *ngFor="let item of products" >
+        <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
+          
+        </div>
+        <div class="mt-4 flex justify-between">
+          <div>
+            <h3 class="text-sm text-gray-700">
+              <a class="" [routerLink]="['form',item.id]" href="#">
+                <span aria-hidden="true" class="absolute inset-0"></span>
+                {{item.name}}
+              </a>
+            </h3>
+            <p class="mt-1 text-sm text-gray-500">Black</p>
+          </div>
+          <p class="text-sm font-medium text-gray-900">Q{{item.unitPrice}}</p>
         </div>
       </div>
     </div>
   </div>
+</div>
+
+	
   
